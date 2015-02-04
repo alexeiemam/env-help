@@ -1,4 +1,3 @@
-# v0.2
 module EnvHelp
   module Types
     class Stringy

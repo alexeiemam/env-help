@@ -1,7 +1,7 @@
 # encoding: utf-8
 Gem::Specification.new do |s|
   s.name        = 'env_help'
-  s.version     = '0.2.0'
+  s.version     = '0.2.1'
   s.date        = '2015-02-04'
   s.summary     = 'Env Help'
   s.description = 'Unstructured experiments in parsing hashes with string values'
