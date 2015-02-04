@@ -524,7 +524,7 @@ module EnvHelp
 
       def vars_by_config(data, *args)
         config = {
-          a: [:split_to_array, :in, -4..5, :or=, 99 ],
+          a: [:split_to_array, :to_i, :in, -4..5, :or=, 99 ],
           # d: [:split_to_array, "xXx", :to_i_or=, :do_not_want],
           robos_replaced: [:var_collection, :ROBOCOP_PRIME_DIRECTIVES_, :un_prefix_keys, lambda{|s| s.to_s.sub('Serve', 'Abuse').sub('Protect', 'Take advantage of').sub('Uphold', 'Break')}],
           robo_3s: [:var_collection, /robo.*3/i],
