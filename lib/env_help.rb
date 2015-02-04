@@ -501,7 +501,7 @@ module EnvHelp
       end
 
       def moddy_collection_mod_mod(data, *args)
-        EnvHelp::Get::var_collection :ABC_,
+        EnvHelp::Get::var_collection :ABC_, data,
           :un_prefix_keys, :downcase_keys, :mod_keys, lambda {|k| k.to_s.gsub('_','/')},
           :split_to_array, lambda {|vs| vs.map(&:to_i)}
       end
