@@ -11,6 +11,43 @@ module EnvHelp
 
     end
     end
+
+    class StructuredObjects
+
+    require 'uri'
+    require 'yaml'
+    require 'ostruct'
+
+    class << self
+      def connection_config(value, *args)
+        # Adapted From https://gist.github.com/pricees/9630464
+
+        return nil unless value
+        begin
+          uri    = URI.parse(value)
+
+          qs     = Hash[URI::decode_www_form(uri.query)]
+          ui     = uri.userinfo.split(':')
+
+          OpenStruct.new({
+            encoding:   qs['encoding'] || 'utf-8',
+            adapter:    uri.scheme,
+            host:       uri.host,
+            port:       uri.port || 3306,
+            database:   uri.path[1..-1],
+            username:   ui.first,
+            password:   ui.last,
+            reconnect:  qs['reconnect'] || true,
+            pool:       qs['pool'] || 5
+          })
+
+        rescue
+          return nil
+        end
+      end
+    end
+    end
+
     class Numeric
     class << self
 
@@ -539,6 +576,13 @@ module EnvHelp
         # => [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1, 2, 3, 4, 5, 6, 7, 8, 9]
         # after compact
         # => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      end
+
+      def db_config(*_)
+        data = {
+          db2: "mysql2://mister:password@example.org:3309/test?reconnect=false&pool=17"
+        }
+        EnvHelp::Get::var :db2, data, :connection_config
       end
 
     end
