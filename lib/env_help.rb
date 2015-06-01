@@ -33,7 +33,7 @@ module EnvHelp
         return nil unless value
         begin
           # see https://github.com/rails/rails/pull/13582/files
-          ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(value).to_hash
+          ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(value).to_hash.with_indifferent_access
         rescue
           begin
             # Adapted From https://gist.github.com/pricees/9630464
