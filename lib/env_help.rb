@@ -22,10 +22,18 @@ module EnvHelp
       
       def connection_struct(value, *args)
         return nil unless value
+        begin 
+          connection_hash(value, *args)
+        rescue 
+         return nil
+        end
+      end
+      
+      def connection_hash(value, *args)
+        return nil unless value
         begin
           # see https://github.com/rails/rails/pull/13582/files
-          connection_hash = ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(value).to_hash
-          OpenStruct.new connection_hash
+          ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(value).to_hash
         rescue
           begin
             # Adapted From https://gist.github.com/pricees/9630464
@@ -34,7 +42,7 @@ module EnvHelp
             qs     = Hash[URI::decode_www_form(uri.query)]
             ui     = uri.userinfo.split(':')
   
-            OpenStruct.new({
+            {
               encoding:   qs['encoding'] || 'utf-8',
               adapter:    uri.scheme,
               host:       uri.host,
@@ -44,7 +52,7 @@ module EnvHelp
               password:   ui.last,
               reconnect:  qs['reconnect'] || true,
               pool:       qs['pool'] || 5
-            })
+            }
           rescue
             return nil
           end
