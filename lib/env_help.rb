@@ -19,32 +19,38 @@ module EnvHelp
     require 'ostruct'
 
     class << self
-      def connection_config(value, *args)
-        # Adapted From https://gist.github.com/pricees/9630464
-
+      
+      def connection_struct(value, *args)
         return nil unless value
         begin
-          uri    = URI.parse(value)
-
-          qs     = Hash[URI::decode_www_form(uri.query)]
-          ui     = uri.userinfo.split(':')
-
-          OpenStruct.new({
-            encoding:   qs['encoding'] || 'utf-8',
-            adapter:    uri.scheme,
-            host:       uri.host,
-            port:       uri.port || 3306,
-            database:   uri.path[1..-1],
-            username:   ui.first,
-            password:   ui.last,
-            reconnect:  qs['reconnect'] || true,
-            pool:       qs['pool'] || 5
-          })
-
+          # see https://github.com/rails/rails/pull/13582/files
+          connection_hash = ActiveRecord::ConnectionAdapters::ConnectionSpecification::ConnectionUrlResolver.new(value).to_hash
+          OpenStruct.new connection_hash
         rescue
-          return nil
+          begin
+            # Adapted From https://gist.github.com/pricees/9630464
+            uri    = URI.parse(value)
+  
+            qs     = Hash[URI::decode_www_form(uri.query)]
+            ui     = uri.userinfo.split(':')
+  
+            OpenStruct.new({
+              encoding:   qs['encoding'] || 'utf-8',
+              adapter:    uri.scheme,
+              host:       uri.host,
+              port:       uri.port || 3306,
+              database:   uri.path[1..-1],
+              username:   ui.first,
+              password:   ui.last,
+              reconnect:  qs['reconnect'] || true,
+              pool:       qs['pool'] || 5
+            })
+          rescue
+            return nil
+          end
         end
       end
+      
     end
     end
 
