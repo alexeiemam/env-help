@@ -1,0 +1,47 @@
+---
+:EnvHelpTestString: "a,b,c,d,e,f,g,h,j,i,1,2,3,4,5,6,7,8,9"
+:db2: "mysql2://mister:password@example.org:3309/test?reconnect=false&pool=17"
+:zippadee: "value"
+:doooda: "0"
+:zippaddeweedaaaay: "thing"
+:hmm: "-45"
+:yessuh: "12"
+:nierp: ""
+:a: "1,2,3,4,5,6,7,8,9,0,-24242,a,5,bb56"
+:b: "Hey thre"
+:c: "yes,no,maybe,i-dont-know,can-you-repeat-the-question,true,off,false,nah,yeah,affirmative,negative"
+:d: "13824xXx77789xXx09843xXx-55"
+:e: "23..37"
+:vanguard_mode_destroy: "Yes"
+:vanguard_pos_mode: "negative"
+:prokofiev_music_mode: "yeah"
+:vanguard_mode_spy: "nah"
+:vanguard_mode_obliterate: "ON"
+:vanguard_mode_cover_my_tracks: "1"
+:vanguard_mode_love_the_world: "maybe next year"
+:ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_1: "Serve the public trust"
+:ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_2: "Protect the innocent"
+:ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_3: "Uphold the law"
+:iRobot_three_laws_law_1: "A robot may not injure a human being or, through inaction, allow a human being to come to harm"
+:iRobot_three_laws_law_2: "A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law."
+:iRobot_three_laws_law_3: "A robot must protect its own existence as long as such protection does not conflict with the First or Second Law"
+:ABC_a_xx_y: '0,1,2,3,4'
+:ABC_b_ww_z: '5,6,7,8,9'
+:how:
+  :deeply:
+    :can:
+      :you:
+        :possibly:
+          :nest:
+            :this:
+              :value:
+                :that:
+                  :i:
+                    :need: "I'm not even an interesting value"
+:nested_robots:
+  :ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_1: "Serve the public trust"
+  :ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_2: "Protect the innocent"
+  :ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_3: "Uphold the law"
+  :iRobot_three_laws_law_1: "A robot may not injure a human being or, through inaction, allow a human being to come to harm"
+  :iRobot_three_laws_law_2: "A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law."
+  :iRobot_three_laws_law_3: "A robot must protect its own existence as long as such protection does not conflict with the First or Second Law"
