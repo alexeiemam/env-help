@@ -123,6 +123,29 @@ RSpec.describe EnvHelp do
     expect(result).to eq("forget you I don't do what you t1ll me")
   end
 
+  it "detects correct boolean (truthy)" do
+    result =
+      EnvHelp::Get::var :vanguard_mode_destroy, TEST_ENV, :false_unless_true_ish
+    expect(result).to eq(true)
+  end
+
+  it "falls back to correct boolean (falsy)" do
+    result =
+      EnvHelp::Get::var :a, TEST_ENV, :false_unless_true_ish
+    expect(result).to eq(false)
+  end
+
+  it "detects correct boolean (falsy)" do
+    result =
+      EnvHelp::Get::var :vanguard_mode_spy, TEST_ENV, :true_unless_false_ish
+    expect(result).to eq(false)
+  end
+
+  it "falls back to correct boolean (truthy)" do
+    result =
+      EnvHelp::Get::var :a, TEST_ENV, :true_unless_false_ish
+    expect(result).to eq(true)
+  end
 
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
