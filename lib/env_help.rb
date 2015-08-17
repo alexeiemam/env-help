@@ -128,7 +128,7 @@ module EnvHelp
         def true_bool_from_string_with_fallback(value, fallback_value=nil, *args)
           value.
             try(:to_s).try(:downcase).try(:to_sym).
-            try(:in?, [:true,:"1",:enabled,:yes,:live,:on,:yeah,:yep,:positive,:affirmative,:y]) ||
+            try(:in?, [:true,:t,:"1",:enabled,:yes,:live,:on,:yeah,:yep,:positive,:affirmative,:y]) ||
             fallback_value
         end
 
@@ -136,7 +136,7 @@ module EnvHelp
           determined_bool =
           value.
             try(:to_s).try(:downcase).try(:to_sym).
-            try(:in?, [:false,:"0",:disabled,:no,:dead,:off,:nah,:nope,:negative,:n,:nyet]).
+            try(:in?, [:false,:f,:"0",:disabled,:no,:dead,:off,:nah,:nope,:negative,:n,:nyet]).
             try(:!)
           (determined_bool == false) ? determined_bool : fallback_value
         end
