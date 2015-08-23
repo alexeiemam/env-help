@@ -213,7 +213,6 @@ RSpec.describe EnvHelp do
   it "converts range-like strings" do 
     result = 
       EnvHelp::Get::var :rangey_collection, TEST_ENV, :rangey
-
     expect(result).to eq([2,5,9])
     result = 
       EnvHelp::Get::var :rangey_range, TEST_ENV, :rangey
@@ -221,19 +220,16 @@ RSpec.describe EnvHelp do
     result = 
       EnvHelp::Get::var :rangey_single, TEST_ENV, :rangey
     expect(result).to eq([2])
-
     result = 
       EnvHelp::Get::var :rangey_bork, TEST_ENV, :rangey
     expect(result).to eq([])
-
   end
 
 
   it "returns a connection hash" do
-    pending("Non-activesupport fallback")
     result =
-      EnvHelp::Get::var :db2, TEST_ENV, :connection_config
-    expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
+      EnvHelp::Get::var :db2, TEST_ENV, :connection_hash
+    expect(result).to eq({:encoding=>"utf-8", :adapter=>"mysql2", :host=>"example.org", :port=>3309, :database=>"test", :username=>"mister", :password=>"password", :reconnect=>"false", :pool=>"17"})
   end
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
