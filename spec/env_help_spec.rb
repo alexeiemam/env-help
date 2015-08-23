@@ -228,6 +228,9 @@ RSpec.describe EnvHelp do
 
   it "returns a connection hash" do
     result =
+      EnvHelp::Get::var :dontexist, TEST_ENV, :connection_hash
+    expect(result).to eq nil
+    result =
       EnvHelp::Get::var :db2, TEST_ENV, :connection_hash
     expect(result).to eq({:encoding=>"utf-8", :adapter=>"mysql2", :host=>"example.org", :port=>3309, :database=>"test", :username=>"mister", :password=>"password", :reconnect=>"false", :pool=>"17"})
   end
