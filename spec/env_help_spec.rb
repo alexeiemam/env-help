@@ -117,6 +117,28 @@ RSpec.describe EnvHelp do
     )
   end
 
+  it "converts var collections to structs" do 
+    pending("to_struct fix")
+    result =
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"}, 
+        :to_struct
+
+    expect(result.class.name).to eq('Class')
+    expect(result.respond_to?(:obliterate)).to eq true
+    expect(result.obliterate).to eq 'Yes commander'
+  end
+
+  it "converts var collections to Open Structs" do 
+    result =
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"}, 
+        :to_ostruct
+
+    expect(result.class.name).to eq('OpenStruct')
+    expect(result.respond_to?(:obliterate)).to eq true
+    expect(result.obliterate).to eq 'Yes commander'
+
+  end
+
   it "allows conditional numeric conversions" do
     result =
       EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
@@ -145,6 +167,56 @@ RSpec.describe EnvHelp do
     result =
       EnvHelp::Get::var :a, TEST_ENV, :true_unless_false_ish
     expect(result).to eq(true)
+  end
+
+  it "detects positive int" do
+    result =
+      EnvHelp::Get::var :positive, TEST_ENV, :positive_int
+    expect(result).to eq(15)
+  end
+
+  it "detects non_negative int" do
+    result =
+      EnvHelp::Get::var :negative, TEST_ENV, :positive_int
+    expect(result).to eq(nil)
+  end
+
+  it "detects positive int and fallsback" do
+    result =
+      EnvHelp::Get::var :negative, TEST_ENV, :positive_int, :or=, 99
+    expect(result).to eq(99)
+  end
+
+  it "detects megative int" do
+    pending("netagive int fix")
+    result =
+      EnvHelp::Get::var :negative, TEST_ENV, :negative_int
+    expect(result).to eq(15)
+  end
+
+  it "detects negative int and fallsback" do
+    pending("netagive int fix")
+    result =
+      EnvHelp::Get::var :positive, TEST_ENV, :negative_int, :or=, -99
+    expect(result).to eq(-99)
+  end
+
+  it "detects float-looking strings" do 
+    result = 
+      EnvHelp::Get::var :floaty, TEST_ENV, :float_like, :or=, -99
+    expect(result).to eq(3.22222)
+    result = 
+      EnvHelp::Get::var :db2, TEST_ENV, :float_like, :or=, -99
+    expect(result).to eq(-99)
+  end
+
+  it "converts range-like strings" do 
+    pending("e")
+    expect(1).to eq(-99)
+    # :rangey_collection: "2,5,9"
+    # :rangey_range:  "2..9"
+    # :rangey_single: "2"
+
   end
 
 
