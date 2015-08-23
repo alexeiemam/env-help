@@ -3,6 +3,7 @@ Coveralls.wear!
 
 require "rspec"
 require "env_help"
+require "core_ext/overrides"
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
