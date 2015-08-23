@@ -211,11 +211,20 @@ RSpec.describe EnvHelp do
   end
 
   it "converts range-like strings" do 
-    pending("e")
-    expect(1).to eq(-99)
-    # :rangey_collection: "2,5,9"
-    # :rangey_range:  "2..9"
-    # :rangey_single: "2"
+    result = 
+      EnvHelp::Get::var :rangey_collection, TEST_ENV, :rangey
+
+    expect(result).to eq([2,5,9])
+    result = 
+      EnvHelp::Get::var :rangey_range, TEST_ENV, :rangey
+    expect(result).to eq(2..9)
+    result = 
+      EnvHelp::Get::var :rangey_single, TEST_ENV, :rangey
+    expect(result).to eq([2])
+
+    result = 
+      EnvHelp::Get::var :rangey_bork, TEST_ENV, :rangey
+    expect(result).to eq([])
 
   end
 
