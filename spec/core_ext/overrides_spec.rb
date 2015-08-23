@@ -6,6 +6,19 @@ RSpec.describe Object do
     non_string = 2
     expect(string.try(:upcase)).to eq("ABV")
     expect(non_string.try(:upcase)).to eq(nil)
+
+    blocked_result_arity = 
+      string.try do |v|
+        v
+      end
+
+    blocked_result = 
+      string.try do
+        'chickens'
+      end
+
+    expect(blocked_result_arity).to eq(string)
+    expect(blocked_result).to eq('chickens')
   end
 
   it "offers activesupport-like 'present?', 'presence', 'blank?' support when activesupport not present" do
@@ -36,7 +49,7 @@ RSpec.describe Object do
     expect(the_one.presence_in(c_staff)).to eq(the_one)
     expect(the_one.presence_in(a_staff)).to eq(nil)
     expect(the_one.in?(a_staff)).to eq(false)
-    expect(the_one.in?(bork_staff)).to raise_error(ArgumentError)
+    expect {the_one.in?(bork_staff)}.to raise_error(ArgumentError)
   end
 
   it "offers activesupport-like 'starts_with?, ends_with?' support when activesupport not present" do
