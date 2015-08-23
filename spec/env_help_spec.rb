@@ -147,6 +147,13 @@ RSpec.describe EnvHelp do
     expect(result).to eq(true)
   end
 
+
+  it "returns a connection hash" do
+    pending("Non-activesupport fallback")
+    result =
+      EnvHelp::Get::var :db2, TEST_ENV, :connection_config
+    expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
+  end
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
   # end
@@ -158,11 +165,7 @@ RSpec.describe EnvHelp do
   #   expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
   # end
 
-  # it "returns a connection hash" do
-  #   result =
-  #     EnvHelp::Get::var :db2, TEST_ENV, :connection_config
-  #   expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
-  # end
+
 
   # it "allows conversion from boolean collection to numeric collection" do
   #   result =
