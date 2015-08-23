@@ -30,8 +30,13 @@ RSpec.describe Object do
       arsene
       kroenke
     )
+
+    bork_staff = 2
     expect(the_one.in?(c_staff)).to eq(true)
+    expect(the_one.presence_in(c_staff)).to eq(the_one)
+    expect(the_one.presence_in(a_staff)).to eq(nil)
     expect(the_one.in?(a_staff)).to eq(false)
+    expect(the_one.in?(bork_staff)).to raise_error(ArgumentError)
   end
 
   it "offers activesupport-like 'starts_with?, ends_with?' support when activesupport not present" do
@@ -46,6 +51,8 @@ RSpec.describe Object do
   it "offers activesupport-like 'String.last, String.from' support when activesupport not present" do
     string = 'irate_platypus'
     expect(string.last(8)).to eq('platypus')
+    expect(string.last(0)).to eq('')
+    expect(string.last(200)).to eq(string)
     expect(string.from(6)).to eq('platypus')
   end
 end
