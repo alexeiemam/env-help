@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email         = ''
   s.files         = Dir["lib/**/*.*"]
   s.homepage      = 'https://github.com/alexeiemam/env-help'
-  s.license       = ["MIT"]
+  s.licenses       = ["MIT"]
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
