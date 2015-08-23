@@ -233,6 +233,9 @@ RSpec.describe EnvHelp do
     result =
       EnvHelp::Get::var :db2, TEST_ENV, :connection_hash
     expect(result).to eq({:encoding=>"utf-8", :adapter=>"mysql2", :host=>"example.org", :port=>3309, :database=>"test", :username=>"mister", :password=>"password", :reconnect=>"false", :pool=>"17"})
+    result =
+      EnvHelp::Get::var :db2, TEST_ENV, :connection_struct
+    expect(result.host).to eq "example.org"
   end
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
