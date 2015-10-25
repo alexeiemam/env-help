@@ -222,6 +222,20 @@ RSpec.describe EnvHelp do
     expect(result).to eq([])
   end
 
+  it "compacts result arrays" do
+    result =
+      EnvHelp::Get::var :a, TEST_ENV, :split_to_array, :positive_int,
+      :compact
+    expect(result).not_to include(nil)
+  end
+
+  it "compacts result hashes" do
+    result =
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool,
+      :compact
+    expect(result.values).not_to include(nil)
+  end
+
 
   it "returns a connection hash" do
     result =

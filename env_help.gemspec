@@ -1,8 +1,8 @@
 # encoding: utf-8
 Gem::Specification.new do |s|
   s.name          = 'env_help'
-  s.version       = '0.4.9'
-  s.date          = '2015-08-23'
+  s.version       = '0.4.10'
+  s.date          = '2015-10-25'
   s.summary       = 'Env Help'
   s.description   = 'Unstructured inconsistent domain specific operation-queue conventions for parsing hashes with string values'
   s.authors       = ['Alexei']

@@ -191,18 +191,7 @@ module EnvHelp
       end
 
       def to_struct(hashlike, *modifiers)
-        puts 'YO!!!'
-        puts 'keys--'
-        puts hashlike.keys
-        puts 'values--'
-        puts hashlike.values
-        puts 'class--'
-
-        x = Struct.new(*(hashlike.keys)).new(*(hashlike.values))
-        puts x.kind_of?(Struct)
-        puts x.class
-        puts x.to_yaml
-        x
+        Struct.new(*(hashlike.keys)).new(*(hashlike.values))
       end
 
       def to_ostruct(hashlike, *modifiers)
@@ -215,7 +204,7 @@ module EnvHelp
         end
         if values.is_a?(Hash)
           return values.each_with_object({}) do |(k,v),o|
-            o[nu_key] = v unless v.nil?
+            o[k] = v unless v.nil?
           end
         end
         return values
