@@ -26,7 +26,21 @@ RSpec.describe EnvHelp do
         }
     result = EnvHelp::Get::vars_by_config config, TEST_ENV
     expect(result).to eq({
-      :a=>[1, 2, 3, 4, 5, 99, 99, 99, 99, 0, 99, 99, 5, 99], :robos_replaced=>{:DIRECTIVE_1=>"Abuse the public trust", :DIRECTIVE_2=>"Take advantage of the innocent", :DIRECTIVE_3=>"Break the law"}, :robo_3s=>{:ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_3=>"Uphold the law", :iRobot_three_laws_law_3=>"A robot must protect its own existence as long as such protection does not conflict with the First or Second Law"}, :nested_prefixes=>{:DIRECTIVE_1=>"Serve the public trust", :DIRECTIVE_2=>"Protect the innocent", :DIRECTIVE_3=>"Uphold the law"}
+      :a => [ 1, 2, 3, 4, 5, 99, 99, 99, 99, 0, 99, 99, 5, 99 ],
+      :robos_replaced => {
+        :DIRECTIVE_1 => "Abuse the public trust",
+        :DIRECTIVE_2 => "Take advantage of the innocent",
+        :DIRECTIVE_3 => "Break the law"
+      },
+      :robo_3s => {
+        :ROBOCOP_PRIME_DIRECTIVES_DIRECTIVE_3 => "Uphold the law",
+        :iRobot_three_laws_law_3 => "A robot must protect its own existence as long as such protection does not conflict with the First or Second Law"
+      },
+      :nested_prefixes => {
+        :DIRECTIVE_1 => "Serve the public trust",
+        :DIRECTIVE_2 => "Protect the innocent",
+        :DIRECTIVE_3 => "Uphold the law"
+      }
     })
   end
 
