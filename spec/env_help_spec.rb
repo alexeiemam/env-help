@@ -257,7 +257,6 @@ RSpec.describe EnvHelp do
     expect(result.love_the_world).to eq(nil)
   end
 
-
   it "returns a connection hash or open struct or nil" do
     result =
       EnvHelp::Get::var :dontexist, TEST_ENV, :connection_hash
@@ -276,6 +275,63 @@ RSpec.describe EnvHelp do
     result =
       EnvHelp::Get::var :db2, {db2: 'garbage'}, :connection_struct
     expect(result.host).to eq nil
+  end
+
+  it "returns nil on non-matching regexp matcher" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :regexp_match, /gar/i
+
+    expect(result).to eq 'garage'
+  end
+
+  it "returns the value on matching regexp matcher" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :regexp_match, /veh/i
+
+    expect(result).to eq nil
+  end
+
+  it "returns the value or nil based on regexp satisfier" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :satisfies, /gar/i
+
+    expect(result).to eq 'garage'
+  end
+
+  it "returns the value or nil on based on array satisfier" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :satisfies, ['garage']
+
+    expect(result).to eq 'garage'
+  end
+
+  it "always returns the value with true satisfier" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :satisfies, true
+
+    expect(result).to eq 'garage'
+  end
+
+  it "always returns nil with false satisfier" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :satisfies, false
+
+    expect(result).to eq nil
+  end
+
+  it "returns the first available value from the list of potential keys" do
+    needle = 'beuh'
+    result =
+      EnvHelp::Get::any_from [ :the_key, :the_empty_key, :the_key_with_data ],
+      {the_key: '', the_empty_key: nil,  the_key_with_data: needle}, :presence
+
+    expect(result).to eq needle
   end
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
