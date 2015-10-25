@@ -337,19 +337,20 @@ RSpec.describe EnvHelp do
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
   # end
 
-  # it "uses fallback when specified and TEST_ENV not present" do
-  #   result =
-  #     EnvHelp::Get::var :a, TEST_ENV,
-  #       :rangey_or=, -1..16, :in, 0..12, :or=, :you_lose
-  #   expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
-  # end
+  it "uses fallback value under var_collection" do
+    result =
+      EnvHelp::Get::var_collection :not_present, {not_present: 'x'},
+        :rangey_or=, -1..16, :in, 0..12, :or=, :you_lose
+    # expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
+    expect(result).to eq({:not_present=>:you_lose})
+  end
 
 
 
   # it "allows conversion from boolean collection to numeric collection" do
   #   result =
   #     EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys,
-  #     :to_bool_with_fallback, false, :to_i_or=, -666
+  #     :to_bool_with_fallback, false, :to_s,  :to_i_or=, -666
   #   expect(result).to eq("I'm not even an interesting value")
   # end
 
