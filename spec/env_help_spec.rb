@@ -236,6 +236,13 @@ RSpec.describe EnvHelp do
     expect(result.values).not_to include(nil)
   end
 
+  it "does not compact result Structs" do
+    result =
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool, :to_struct,
+      :compact
+    expect(result.love_the_world).to eq(nil)
+  end
+
 
   it "returns a connection hash or open struct or nil" do
     result =
