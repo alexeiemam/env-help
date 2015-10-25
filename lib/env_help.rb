@@ -24,11 +24,7 @@ module EnvHelp
 
       def connection_struct(value, *args)
         return nil unless value
-        begin
-          OpenStruct.new connection_hash(value, *args)
-        rescue
-         return nil
-        end
+        OpenStruct.new connection_hash(value, *args)
       end
 
       def connection_hash(value, *args)

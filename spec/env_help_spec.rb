@@ -325,6 +325,14 @@ RSpec.describe EnvHelp do
     expect(result).to eq nil
   end
 
+  it "returns nil for unstructy connection values" do
+    result =
+      EnvHelp::Get::var :the_key, {the_key: 'garage'},
+      :connection_struct
+
+    expect(result).to eq nil
+  end
+
   it "returns the first available value from the list of potential keys" do
     needle = 'beuh'
     result =
@@ -340,7 +348,7 @@ RSpec.describe EnvHelp do
   it "uses fallback value under var_collection" do
     result =
       EnvHelp::Get::var_collection :not_present, {not_present: 'x'},
-        :rangey_or=, -1..16, :in, 0..12, :or=, :you_lose
+        :rangey_or=,  :if_present?, -1..16, :in, 0..12, :or=, :you_lose
     # expect(result).to eq([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, :you_lose, 0, 5, 0])
     expect(result).to eq({:not_present=>:you_lose})
   end
