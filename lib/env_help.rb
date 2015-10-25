@@ -191,7 +191,18 @@ module EnvHelp
       end
 
       def to_struct(hashlike, *modifiers)
-        Struct.new(*(hashlike.keys)).new(*(hashlike.values))
+        puts 'YO!!!'
+        puts 'keys--'
+        puts hashlike.keys
+        puts 'values--'
+        puts hashlike.values
+        puts 'class--'
+
+        x = Struct.new(*(hashlike.keys)).new(*(hashlike.values))
+        puts x.kind_of?(Struct)
+        puts x.class
+        puts x.to_yaml
+        x
       end
 
       def to_ostruct(hashlike, *modifiers)

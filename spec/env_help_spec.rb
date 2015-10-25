@@ -118,12 +118,11 @@ RSpec.describe EnvHelp do
   end
 
   it "converts var collections to structs" do
-    pending("to_struct fix")
     result =
       EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"},
         :to_struct
 
-    expect(result.class.name).to eq('Class')
+    expect(result).to be_kind_of(Struct)
     expect(result.respond_to?(:obliterate)).to eq true
     expect(result.obliterate).to eq 'Yes commander'
   end
@@ -133,7 +132,7 @@ RSpec.describe EnvHelp do
       EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"},
         :to_ostruct
 
-    expect(result.class.name).to eq('OpenStruct')
+    expect(result).to be_kind_of(OpenStruct)
     expect(result.respond_to?(:obliterate)).to eq true
     expect(result.obliterate).to eq 'Yes commander'
 
