@@ -325,12 +325,12 @@ RSpec.describe EnvHelp do
     expect(result).to eq nil
   end
 
-  it "returns nil for unstructy connection values" do
+  it "accepts mod_sequence satisfier" do
     result =
       EnvHelp::Get::var :the_key, {the_key: 'garage'},
-      :connection_struct
+      :satisfies, :the_key
 
-    expect(result).to eq nil
+    expect(result).to eq 'garage'
   end
 
   it "returns the first available value from the list of potential keys" do
