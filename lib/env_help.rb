@@ -91,6 +91,10 @@ module EnvHelp
         an_int
       end
 
+      def negative_int(value, *args)
+        less_than(value, -1)
+      end
+
       def non_negative_int(value, *args)
         more_than(value, -1)
       end

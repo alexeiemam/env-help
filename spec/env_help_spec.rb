@@ -117,10 +117,10 @@ RSpec.describe EnvHelp do
     )
   end
 
-  it "converts var collections to structs" do 
+  it "converts var collections to structs" do
     pending("to_struct fix")
     result =
-      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"}, 
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"},
         :to_struct
 
     expect(result.class.name).to eq('Class')
@@ -128,9 +128,9 @@ RSpec.describe EnvHelp do
     expect(result.obliterate).to eq 'Yes commander'
   end
 
-  it "converts var collections to Open Structs" do 
+  it "converts var collections to Open Structs" do
     result =
-      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"}, 
+      EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys, :to_bool_with_fallback, false, lambda{|b| b ? "Yes commander" : "Negative, captain"},
         :to_ostruct
 
     expect(result.class.name).to eq('OpenStruct')
@@ -188,39 +188,37 @@ RSpec.describe EnvHelp do
   end
 
   it "detects megative int" do
-    pending("netagive int fix")
     result =
       EnvHelp::Get::var :negative, TEST_ENV, :negative_int
-    expect(result).to eq(15)
+    expect(result).to eq(-15)
   end
 
   it "detects negative int and fallsback" do
-    pending("netagive int fix")
     result =
       EnvHelp::Get::var :positive, TEST_ENV, :negative_int, :or=, -99
     expect(result).to eq(-99)
   end
 
-  it "detects float-looking strings" do 
-    result = 
+  it "detects float-looking strings" do
+    result =
       EnvHelp::Get::var :floaty, TEST_ENV, :float_like, :or=, -99
     expect(result).to eq(3.22222)
-    result = 
+    result =
       EnvHelp::Get::var :db2, TEST_ENV, :float_like, :or=, -99
     expect(result).to eq(-99)
   end
 
-  it "converts range-like strings" do 
-    result = 
+  it "converts range-like strings" do
+    result =
       EnvHelp::Get::var :rangey_collection, TEST_ENV, :rangey
     expect(result).to eq([2,5,9])
-    result = 
+    result =
       EnvHelp::Get::var :rangey_range, TEST_ENV, :rangey
     expect(result).to eq(2..9)
-    result = 
+    result =
       EnvHelp::Get::var :rangey_single, TEST_ENV, :rangey
     expect(result).to eq([2])
-    result = 
+    result =
       EnvHelp::Get::var :rangey_bork, TEST_ENV, :rangey
     expect(result).to eq([])
   end
