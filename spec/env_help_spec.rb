@@ -176,7 +176,7 @@ RSpec.describe EnvHelp do
 
   it "detects non_negative int" do
     result =
-      EnvHelp::Get::var :negative, TEST_ENV, :positive_int
+      EnvHelp::Get::var :negative, TEST_ENV, :non_negative_int
     expect(result).to eq(nil)
   end
 
@@ -186,7 +186,7 @@ RSpec.describe EnvHelp do
     expect(result).to eq(99)
   end
 
-  it "detects megative int" do
+  it "detects negative ints" do
     result =
       EnvHelp::Get::var :negative, TEST_ENV, :negative_int
     expect(result).to eq(-15)
@@ -237,7 +237,7 @@ RSpec.describe EnvHelp do
   end
 
 
-  it "returns a connection hash" do
+  it "returns a connection hash or open struct or nil" do
     result =
       EnvHelp::Get::var :dontexist, TEST_ENV, :connection_hash
     expect(result).to eq nil
@@ -247,6 +247,14 @@ RSpec.describe EnvHelp do
     result =
       EnvHelp::Get::var :db2, TEST_ENV, :connection_struct
     expect(result.host).to eq "example.org"
+
+    result =
+      EnvHelp::Get::var :db2, {db2: 'garbage'}, :connection_hash
+    expect(result).to eq nil
+
+    result =
+      EnvHelp::Get::var :db2, {db2: 'garbage'}, :connection_struct
+    expect(result.host).to eq nil
   end
   # def numbery(TEST_ENV, *args)
   #   EnvHelp::Get::var :a, TEST_ENV, :to_i_or=, 3, :if_satisfies, lambda{|x| x > -4}, :or=, 9, lambda{|x| "forget you I don't do what you t#{x}ll me"}
