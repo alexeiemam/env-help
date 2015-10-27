@@ -353,8 +353,6 @@ RSpec.describe EnvHelp do
     expect(result).to eq({:not_present=>:you_lose})
   end
 
-
-
   # it "allows conversion from boolean collection to numeric collection" do
   #   result =
   #     EnvHelp::Get::var_collection :vanguard_mode_, TEST_ENV, :un_prefix_keys,

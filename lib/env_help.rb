@@ -390,11 +390,11 @@ module EnvHelp
               meth = meth.to_s.gsub('_or=','').to_sym
               args.unshift(:fallback_to)
               args_in_use = []
-            when meth.to_s.starts_with?('if_')
-              conditioner = meth.to_s.gsub('if_','').to_sym
-              condition_object = args.shift
-              meth = :if
-              args_in_use = [conditioner, condition_object]
+            # when meth.to_s.starts_with?('if_')
+            #   conditioner = meth.to_s.gsub('if_','').to_sym
+            #   condition_object = args.shift
+            #   meth = :if
+            #   args_in_use = [conditioner, condition_object]
             when meth.to_s =~ /mod_keys/i
               keymodder = args.shift
               args_in_use = [keymodder]
